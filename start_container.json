@@ -1,0 +1,5 @@
+{ "name" : "container",
+  "replicas" : 2,
+  "command": "echo hello from container",
+  "dockerImage": "busybox"
+}

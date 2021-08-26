@@ -1,0 +1,76 @@
+swagger: "2.0"
+info:
+  description: "POC"
+  version: "1.0.0"
+  title: "Marathon front-end API"
+schemes:
+- "http"
+paths:
+  /application:
+    post:
+      summary: "Start application"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        schema:
+          $ref: "#/definitions/application"
+        description: "application for Marathon to start"
+        required: true
+      responses:
+        "201":
+          description: "application started"
+        "400":
+          description: "bad parameter"
+    get:
+      summary: "Get started application names"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "list of started applications"
+  /application/{name}:
+    parameters:
+      - name: "name"
+        in: "path"
+        description: "name of the application"
+        required: true
+        type: "string"
+    get:
+      summary: "Get application status"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "application not found"
+    delete:
+      summary: "stop an application"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "application stopped"
+        "404":
+          description: "application not found"
+
+
+definitions:
+  application:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+      replicas:
+        type: "integer"
+      command:
+        type: "string"
+      dockerImage:
+        type: "string"
+
